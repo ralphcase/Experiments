@@ -2,9 +2,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Envelopes {
-	
-	private static final int SIZE = 100;
-	static int[] Envelopes = new int[SIZE];
+
+	private static final int PRISONERS = 100;
+	static int[] Envelopes = new int[PRISONERS];
 
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
@@ -12,27 +12,26 @@ public class Envelopes {
 //		shuffle();
 //		System.out.println(Arrays.toString(Envelopes));
 //		System.out.println(maxLoopSize());
-		
-		System.out.println("Fraction of wins: "+ wins(1000000));
-		
+
+		System.out.println("Fraction of wins: " + wins(1000000));
+
 		long endTime = System.currentTimeMillis();
 		System.out.println("It took " + (endTime - startTime) / 1000.0 + " seconds.");
 	}
-	
-	
+
 	/*
 	 * Return the fraction of wins over the given number of tries.
 	 */
 	static double wins(int tries) {
-		int win =0;
-		for (int i = 0; i<tries; i++) {
+		int win = 0;
+		for (int i = 0; i < tries; i++) {
 			shuffle();
-			if (maxLoopLength() <=SIZE/2) win++;
+			if (maxLoopLength() <= PRISONERS / 2)
+				win++;
 		}
-		return win/(double)tries;
+		return win / (double) tries;
 	}
-	
-	
+
 	/*
 	 * Shuffle the slips in the Envelopes.
 	 */
@@ -40,37 +39,35 @@ public class Envelopes {
 		fill();
 		// Loop through each card in the deck and swap it with a random card.
 		Random rand = new Random();
-		for (int i = 0; i < SIZE; i ++) {
-			int index = rand.nextInt(SIZE);
+		for (int i = 0; i < PRISONERS; i++) {
+			int swap = rand.nextInt(PRISONERS);
 			int temp = Envelopes[i];
-			Envelopes[i] = Envelopes[index];
-			Envelopes[index] = temp;
-			}
+			Envelopes[i] = Envelopes[swap];
+			Envelopes[swap] = temp;
 		}
-
+	}
 
 	/*
 	 * Initialize the Envelopes array.
 	 */
 	private static void fill() {
-		for (int i = 0; i < SIZE; i ++)
+		for (int i = 0; i < PRISONERS; i++)
 			Envelopes[i] = i;
 	}
-	
-	
+
 	/*
 	 * Return the maximum loop length.
 	 */
 	private static int maxLoopLength() {
 		int max = 0;
-		for (int i = 0; i < SIZE; i++) {
+		for (int i = 0; i < PRISONERS; i++) {
 			max = Math.max(max, loopLength(i));
-			if (max > SIZE/2) break;
+			if (max > PRISONERS / 2)
+				break;
 		}
 		return max;
 	}
-	
-	
+
 	/*
 	 * Measure the length of the loop staring at the given index.
 	 */
@@ -80,8 +77,7 @@ public class Envelopes {
 		do {
 			n = Envelopes[n];
 			count++;
-		} 
-		while (n != start);
+		} while (n != start);
 		return count;
 	}
 
