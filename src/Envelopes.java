@@ -14,6 +14,7 @@ public class Envelopes {
 		System.out.println("Fraction of wins: "+ wins(1000000));
 	}
 	
+	
 	/*
 	 * Return the fraction of wins over the given number of tries.
 	 */
@@ -25,6 +26,7 @@ public class Envelopes {
 		}
 		return win/(double)tries;
 	}
+	
 	
 	/*
 	 * Shuffle the slips in the Envelopes.
@@ -42,10 +44,14 @@ public class Envelopes {
 		}
 
 
+	/*
+	 * Initialize the Envelopes array.
+	 */
 	private static void fill() {
 		for (int i = 0; i < SIZE; i ++)
 			Envelopes[i] = i;
 	}
+	
 	
 	/*
 	 * Return the maximum loop length.
@@ -57,6 +63,7 @@ public class Envelopes {
 		}
 		return max;
 	}
+	
 	
 	/*
 	 * Measure the length of the loop staring at the given index.
