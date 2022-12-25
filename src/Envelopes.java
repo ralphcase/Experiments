@@ -7,22 +7,28 @@ public class Envelopes {
 	static int[] Envelopes = new int[SIZE];
 
 	public static void main(String[] args) {
-		shuffle();
+//		shuffle();
 //		System.out.println(Arrays.toString(Envelopes));
 //		System.out.println(maxLoopSize());
 		
 		System.out.println("Fraction of wins: "+ wins(1000000));
 	}
 	
+	/*
+	 * Return the fraction of wins over the given number of tries.
+	 */
 	static double wins(int tries) {
 		int win =0;
 		for (int i = 0; i<tries; i++) {
 			shuffle();
-			if (maxLoopSize() <=SIZE/2) win++;
+			if (maxLoopLength() <=SIZE/2) win++;
 		}
 		return win/(double)tries;
 	}
 	
+	/*
+	 * Shuffle the slips in the Envelopes.
+	 */
 	static void shuffle() {
 		fill();
 		// Loop through each card in the deck and swap it with a random card.
@@ -41,15 +47,21 @@ public class Envelopes {
 			Envelopes[i] = i;
 	}
 	
-	private static int maxLoopSize() {
+	/*
+	 * Return the maximum loop length.
+	 */
+	private static int maxLoopLength() {
 		int max = 0;
 		for (int i = 0; i < SIZE; i++) {
-			max = Math.max(max, loopSize(i));
+			max = Math.max(max, loopLength(i));
 		}
 		return max;
 	}
 	
-	private static int loopSize(int n) {
+	/*
+	 * Measure the length of the loop staring at the given index.
+	 */
+	private static int loopLength(int n) {
 		int start = n;
 		int count = 0;
 		do {
