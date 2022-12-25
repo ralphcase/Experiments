@@ -7,11 +7,16 @@ public class Envelopes {
 	static int[] Envelopes = new int[SIZE];
 
 	public static void main(String[] args) {
+		long startTime = System.currentTimeMillis();
+
 //		shuffle();
 //		System.out.println(Arrays.toString(Envelopes));
 //		System.out.println(maxLoopSize());
 		
 		System.out.println("Fraction of wins: "+ wins(1000000));
+		
+		long endTime = System.currentTimeMillis();
+		System.out.println("It took " + (endTime - startTime) / 1000.0 + " seconds.");
 	}
 	
 	
@@ -60,6 +65,7 @@ public class Envelopes {
 		int max = 0;
 		for (int i = 0; i < SIZE; i++) {
 			max = Math.max(max, loopLength(i));
+			if (max > SIZE/2) break;
 		}
 		return max;
 	}
