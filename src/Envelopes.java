@@ -14,19 +14,33 @@ public class Envelopes {
 //		System.out.println(maxLoopSize());
 
 		System.out.println("Fraction of wins: " + wins(1000000));
+		chartWins(100000);
 
 		long endTime = System.currentTimeMillis();
 		System.out.println("It took " + (endTime - startTime) / 1000.0 + " seconds.");
 	}
+	
+	private static void chartWins(int tries) {
+		for (int i = 1; i <= PRISONERS; i++) {
+			double val = wins(i, tries);
+			System.out.println(i +", "+val);
+		}
+	}
+
+	private static double wins(int tries) {
+		return wins(PRISONERS / 2, tries);
+	}
 
 	/*
 	 * Return the fraction of wins over the given number of tries.
+	 * limit is the number of envelopes allowed to be opened.
 	 */
-	static double wins(int tries) {
+	static double wins(int limit, int tries) {
+		fill();
 		int win = 0;
 		for (int i = 0; i < tries; i++) {
 			shuffle();
-			if (maxLoopLength() <= PRISONERS / 2)
+			if (maxLoopLength() <= limit)
 				win++;
 		}
 		return win / (double) tries;
@@ -36,7 +50,6 @@ public class Envelopes {
 	 * Shuffle the slips in the Envelopes.
 	 */
 	static void shuffle() {
-		fill();
 		// Loop through each card in the deck and swap it with a random card.
 		Random rand = new Random();
 		for (int i = 0; i < PRISONERS; i++) {
